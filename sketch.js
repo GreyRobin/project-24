@@ -5,12 +5,11 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var canvas;
-var player, playerBase;
+var palyer, playerBase;
 var computer, computerBase;
 
 var arrow;
-var playerarrow
-var playerarcher, comparcher
+
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
@@ -20,9 +19,13 @@ function setup() {
 
   playerBase = new PlayerBase(300, random(450, height - 300), 180, 150);
   player = new Player(285, playerBase.body.position.y - 153, 50, 180);
- 
-  //Create Player Archer Object
-  playerarcher = new PlayerArcher(200,player.body.position.y-180,120,120)
+  playerArcher = new PlayerArcher(
+    340,
+    playerBase.body.position.y - 180,
+    120,
+    120
+  );
+
   computerBase = new ComputerBase(
     width - 300,
     random(450, height - 300),
@@ -35,15 +38,14 @@ function setup() {
     50,
     180
   );
-  comparcher = new ComputerArcher(
-    200,
+  computerArcher = new ComputerArcher(
+    width - 340,
     computerBase.body.position.y - 180,
     120,
     120
   );
   
-  //Create an arrow Object
-  playerarrow = new PlayerArrow(playerarcher.body.x,playerarcher.body.y,50,50)
+  arrow = new PlayerArrow(playerArcher.body.position.x, playerArcher.body.position.y, 100, 10);
   
 }
 
@@ -66,18 +68,11 @@ function draw() {
   computerBase.display();
   computer.display();
   
-  playerarcher.display();
-  comparcher.display()
-
-
-  //Display arrow();
-  playerarrow.display()
-  //if Space (32) key is pressed call shoot function of playerArrow
+  playerArcher.display();
+  computerArcher.display()
+  arrow.display()
   if(keyCode === 32){
-    playerarrow.shoot(playerarcher.body.angle)
-    //Call shoot() function and pass angle of playerArcher
-
-
+   arrow.shoot(playerArcher.body.angle);
   }
 }
 
